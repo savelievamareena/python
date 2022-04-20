@@ -5,8 +5,8 @@ A = [int(input("Введите первое число: \n")), int(input("Вве
      int(input("Введите третье число: \n"))]
 
 count = 0
-for i in range(len(A)):
-    if A[i] < 0:
+for i in A:
+    if i < 0:
         count += 1
 
 print(f"Количество отпицательных чисел: {count}")
