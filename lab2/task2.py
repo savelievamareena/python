@@ -11,8 +11,8 @@ mod = []
 for i in range(0, len(A) - 1):
     if A[i] % 2 == 1:
         odds.append(A[i])
-    modulo = A[i] if A[i] > 0 else A[i] * -1
-    mod.append(modulo)
+    modul = A[i] if A[i] > 0 else A[i] * -1
+    mod.append(modul)
 
 print("-----")
 print(odds)
