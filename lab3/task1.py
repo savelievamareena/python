@@ -17,6 +17,7 @@ for i in range(1, len(A)):
     A[j] = t
 
 print(A)
+print("---")
 
 # Функция шейкерной (коктейльной) сортировки shaker
 
