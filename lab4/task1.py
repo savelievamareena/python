@@ -93,8 +93,10 @@ class House:
         self._lifetime = lifetime
 
 
-house1 = House.create_default_house(int(input('Enter House Id: ')), int(input('Enter Apartment Number: ')), int(input('Enter Square: ')), int(input('Enter Floor: ')), int(input('Enter Room: ')))
-house1 = House.create_default_house(int(input('Enter House Id: ')), int(input('Enter Apartment Number: ')), int(input('Enter Square: ')), int(input('Enter Floor: ')), int(input('Enter Room: ')))
-house1 = House.create_default_house(int(input('Enter House Id: ')), int(input('Enter Apartment Number: ')), int(input('Enter Square: ')), int(input('Enter Floor: ')), int(input('Enter Room: ')))
+house1 = House.create_default_house(int(input('Enter House Id: ')),
+                                    int(input('Enter Apartment Number: ')),
+                                    int(input('Enter Square: ')),
+                                    int(input('Enter Floor: ')),
+                                    int(input('Enter Room: ')))
 
 print(house1)
