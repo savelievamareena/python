@@ -5,98 +5,135 @@
 # б) список квартир, имеющих заданное число комнат и расположенных на этаже, который находится в заданном промежутке;
 
 class House:
-    house_list = []
-    _house_id = 0
-    _apt = 0
-    _square = 0
-    _floor = 0
-    _rooms_num = 0
-    _street = ""
-    _building_type = ""
-    _lifetime = 0
+    __house_list = []
+    __house_id = 0
+    __apt = 0
+    __square = 0
+    __floor = 0
+    __rooms_num = 0
+    __street = ""
+    __building_type = ""
+    __lifetime = 0
 
     def __init__(self, house_id, apt, square, floor, rooms_num, street, building_type, lifetime):
         self.set_house_id(house_id)
-        self.set_apt = apt
-        self.set_square = square
-        self.set_floor = floor
-        self.set_rooms_num = rooms_num
-        self.set_street = street
-        self.set_building_type = building_type
-        self.set_lifetime = lifetime
+        self.set_apt(apt)
+        self.set_square(square)
+        self.set_floor(floor)
+        self.set_rooms_num(rooms_num)
+        self.set_street(street)
+        self.set_building_type(building_type)
+        self.set_lifetime(lifetime)
+        House.add_house_to_list(self)
 
     @classmethod
     def create_default_house(cls, house_id, apt, square, floor, rooms_num):
         default_house = cls(house_id, apt, square, floor, rooms_num, 'Slobodskaya', 'panel house', 70)
         return default_house
 
-    def function_a(self, house_list, number_of_rooms):
+    @staticmethod
+    def function_a(house_list, number_of_rooms):
         result = []
-        for house in house_list:
-            if number_of_rooms == self.get_rooms_num():
-                result.append(house)
+        for flat in house_list:
+            if number_of_rooms == flat.get_rooms_num():
+                result.append(flat)
         return result
 
-    def function_b(self, number_of_rooms, min_floor, max_floor):
+    @staticmethod
+    def function_b(house_list, number_of_rooms, min_floor, max_floor):
         result = []
-        for house in self.house_list:
-            if number_of_rooms == self.get_rooms_num() and min_floor <= self.get_floor() <= max_floor:
-                result.append(house)
+        for flat in house_list:
+            if number_of_rooms == flat.get_rooms_num() and min_floor <= flat.get_floor() <= max_floor:
+                result.append(flat)
         return result
 
     def get_house_id(self):
-        return self._house_id
+        return self.__house_id
 
     def set_house_id(self, house_id):
-        self._house_id = house_id
+        self.__house_id = house_id
 
     def get_apt(self):
-        return self._apt
+        return self.__apt
 
     def set_apt(self, apt):
-        self._apt = apt
+        self.__apt = apt
 
     def get_square(self):
-        return self._square
+        return self.__square
 
     def set_square(self, square):
-        self._square = square
+        self.__square = square
 
     def get_floor(self):
-        return self._floor
+        return self.__floor
 
     def set_floor(self, floor):
-        self._floor = floor
+        self.__floor = floor
 
     def get_rooms_num(self):
-        return self._rooms_num
+        return self.__rooms_num
 
     def set_rooms_num(self, rooms_num):
-        self._rooms_num = rooms_num
+        self.__rooms_num = rooms_num
 
     def get_street(self):
-        return self._street
+        return self.__street
 
     def set_street(self, street):
-        self._street = street
+        self.__street = street
 
     def get_building_type(self):
-        return self._building_type
+        return self.__building_type
 
     def set_building_type(self, building_type):
-        self._building_type = building_type
+        self.__building_type = building_type
 
     def get_lifetime(self):
-        return self._lifetime
+        return self.__lifetime
 
     def set_lifetime(self, lifetime):
-        self._lifetime = lifetime
+        self.__lifetime = lifetime
+
+    @staticmethod
+    def get_house_list():
+        return House.__house_list
+
+    @staticmethod
+    def add_house_to_list(house):
+        House.__house_list.append(house)
+
+    @staticmethod
+    def add_house():
+        House.create_default_house(int(input('Enter House Id: ')),
+                                   int(input('Enter Apartment Number: ')),
+                                   int(input('Enter Square: ')),
+                                   int(input('Enter Floor: ')),
+                                   int(input('Enter Rooms Number: ')))
+        return House.get_house_list()
+
+    @staticmethod
+    def see_house_list():
+        for house in House.get_house_list():
+            print(f"{House.get_house_id(house)} --- apartment number: {House.get_apt(house)}, "
+                  f"square: {House.get_square(house)}, floor: {House.get_floor(house)}, "
+                  f"rooms' number: {House.get_rooms_num(house)}, street: {House.get_street(house)}"
+                  f"building type: {House.get_building_type(house)}")
 
 
-house1 = House.create_default_house(int(input('Enter House Id: ')),
-                                    int(input('Enter Apartment Number: ')),
-                                    int(input('Enter Square: ')),
-                                    int(input('Enter Floor: ')),
-                                    int(input('Enter Room: ')))
+text = input("How many houses do you want to enter: ")
+for i in range(int(text)):
+    House.add_house()
+    House.see_house_list()
 
-print(house1)
+number_of_rooms = int(input("Enter number of rooms: "))
+result1 = House.function_a(House.get_house_list(), number_of_rooms)
+print("List of apartments with a given number of rooms: ")
+for house in result1:
+    print(f"{house.get_house_id()} --- apartment number: {house.get_apt()}")
+
+min_floor = int(input("Enter min floor: "))
+max_floor = int(input("Enter max floor: "))
+result2 = House.function_b(House.get_house_list(), number_of_rooms, min_floor, max_floor)
+for house in result2:
+    print(f"{house.get_house_id()} --- apartment number: {house.get_apt()}")
