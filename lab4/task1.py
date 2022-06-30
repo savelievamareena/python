@@ -14,6 +14,7 @@ class House:
     __street = ""
     __building_type = ""
     __lifetime = 0
+    __count = 0
 
     def __init__(self, house_id, apt, square, floor, rooms_num, street, building_type, lifetime):
         self.set_house_id(house_id)
@@ -25,6 +26,24 @@ class House:
         self.set_building_type(building_type)
         self.set_lifetime(lifetime)
         House.add_house_to_list(self)
+
+    def __str__(self):
+        return "Id: {}, Apt: {}, Square: {}, Floor: {}, Rooms' Quantity: {}, Street: {}, Building Type: {}".format(
+            self.get_house_id(), self.get_apt(), self.get_square(), self.get_floor(), self.get_rooms_num(),
+            self.get_street(), self.get_building_type()
+        )
+
+    def __sub__(self, wc_square):
+        return self.__square - wc_square
+
+    def __eq__(self, other):
+        return self.__square == other
+
+    def __lt__(self, other):
+        return self.__square < other
+
+    def __gt__(self, other):
+        return self.__square > other
 
     @classmethod
     def create_default_house(cls, house_id, apt, square, floor, rooms_num):
@@ -115,10 +134,7 @@ class House:
     @staticmethod
     def see_house_list():
         for house in House.get_house_list():
-            print(f"{House.get_house_id(house)} --- apartment number: {House.get_apt(house)}, "
-                  f"square: {House.get_square(house)}, floor: {House.get_floor(house)}, "
-                  f"rooms' number: {House.get_rooms_num(house)}, street: {House.get_street(house)}"
-                  f"building type: {House.get_building_type(house)}")
+            print(house)
 
 
 text = input("How many houses do you want to enter: ")
@@ -130,10 +146,11 @@ number_of_rooms = int(input("Enter number of rooms: "))
 result1 = House.function_a(House.get_house_list(), number_of_rooms)
 print("List of apartments with a given number of rooms: ")
 for house in result1:
-    print(f"{house.get_house_id()} --- apartment number: {house.get_apt()}")
+    print(house)
 
 min_floor = int(input("Enter min floor: "))
 max_floor = int(input("Enter max floor: "))
 result2 = House.function_b(House.get_house_list(), number_of_rooms, min_floor, max_floor)
+print("List of apartments with a given number of rooms that exists on the given range of floors: ")
 for house in result2:
-    print(f"{house.get_house_id()} --- apartment number: {house.get_apt()}")
+    print(house)
