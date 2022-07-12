@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>{{ title.title_text }}</h1>
+    <p>    <strong>{{ method }}</strong>    </p>
+    {% if error_message %}
+        <p>
+            <strong>{{ error_message }}</strong>
+        </p>
+    {% endif %}
+
+    <div style="width: 500px; padding: 10px; margin: 10px; border: 1px solid pink; font-size: 18px">
+        {% for newsbody in title.newsbody_set.all %}
+            {{ newsbody.text }}<br>
+        {% endfor %}
+    </div>
+</body>
+</html>

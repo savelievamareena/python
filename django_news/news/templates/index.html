@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Available Riddles</h1>
+    {% if message %}
+        <p><strong>{{ message }}</strong></p>
+    {% endif %}
+    {% if latest_titles %}
+        <ul>
+            {% for title in latest_titles %}
+                <li>
+                    <a href="{{ title.id }}/" style="color: black; font-size: 18px; line-height: 24px;">
+                        {{ title.title_text }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No news are available right now.</p>
+    {% endif %}
+</body>
+</html>
