@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block main %}
     <h1>Available News</h1>
     {% if message %}
         <p><strong>{{ message }}</strong></p>
@@ -13,7 +8,7 @@
         <ul>
             {% for title in latest_titles %}
                 <li>
-                    <a href="{{ title.id }}/" style="color: black; font-size: 18px; line-height: 24px;">
+                    <a href="/news/{{ title.id }}" style="color: black; font-size: 18px; line-height: 24px;">
                         {{ title.title_text }}
                     </a>
                 </li>
@@ -22,5 +17,4 @@
     {% else %}
         <p>No news are available right now.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}

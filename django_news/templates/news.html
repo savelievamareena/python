@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>{{ title.title_text }}</h1>
+{% extends 'base.html' %}
+{% block main %}
+    <h3>{{ title.title_text }}</h3>
     <p>    <strong>{{ method }}</strong>    </p>
     {% if error_message %}
         <p>
@@ -13,10 +8,9 @@
         </p>
     {% endif %}
 
-    <div style="width: 500px; padding: 10px; margin: 10px; border: 1px solid pink; font-size: 18px">
+    <div style="padding: 10px; margin: 20px; border: 1px solid #000000; font-size: 18px; box-shadow: 8px 8px 2px 1px rgba(94,94,232,0.56);">
         {% for newsbody in title.newsbody_set.all %}
             {{ newsbody.text }}<br>
         {% endfor %}
     </div>
-</body>
-</html>
+{% endblock %}
