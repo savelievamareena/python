@@ -4,12 +4,12 @@
     {% if message %}
         <p><strong>{{ message }}</strong></p>
     {% endif %}
-    {% if latest_titles %}
+    {% if latest_news %}
         <ul>
-            {% for title in latest_titles %}
+            {% for news in latest_news %}
                 <li>
-                    <a href="/news/{{ title.id }}" style="color: black; font-size: 18px; line-height: 24px;">
-                        {{ title.title_text }}
+                    <a href="/news/{{ news.id }}" style="color: black; font-size: 18px; line-height: 24px;">
+                        {{ news.title }}
                     </a>
                 </li>
             {% endfor %}

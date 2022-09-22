@@ -1,44 +1,43 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.datetime_safe import datetime
 from django.views import View
 from django.views.generic import FormView
 
-from .models import Title, NewsBody
+from .models import News, Message
 from django import forms
 
 app_url = "/news/"
 
-# главная страница со списком заголовков
+
 def index(request):
     message = None
     if "message" in request.GET:
         message = request.GET["message"]
-    # создание HTML-страницы по шаблону index.html
-    # с заданными параметрами latest_riddles и message
     return render(
         request,
         "index.html",
         {
-            "latest_titles":
-                Title.objects.order_by('-pub_date')[:10],
+            "latest_news":
+                News.objects.order_by('-pub_date')[:10],
             "message": message
         }
     )
 
 
-#страница с новостью целиком
-def detail(request, title_id):
+def detail(request, news_id):
     error_message = None
-    title = get_object_or_404(Title, pk=title_id)
     if "error_message" in request.GET:
         error_message = request.GET["error_message"]
     return render(
         request,
         "news.html",
         {
-            "title": get_object_or_404(Title, pk=title_id),
+            "a_new": get_object_or_404(
+                News, pk=news_id),
             "error_message": error_message
         }
     )
@@ -87,3 +86,43 @@ class PasswordChangeView(FormView):
     def form_valid(self, form):
         form.save()
         return super(PasswordChangeView, self).form_valid(form)
+
+
+def post(request, riddle_id):
+    msg = Message()
+    msg.author = request.user
+    msg.chat = get_object_or_404(News, pk=riddle_id)
+    msg.message = request.POST['message']
+    msg.pub_date = datetime.now()
+    msg.save()
+    return HttpResponseRedirect(app_url + str(riddle_id))
+
+
+def admin(request):
+    message = None
+    if "message" in request.GET:
+        message = request.GET["message"]
+    return render(
+        request,
+        "admin.html",
+        {
+            "latest_news":
+                News.objects.order_by('-pub_date')[:10],
+            "message": message,
+        }
+    )
+
+
+def post_news(request):
+    author = request.user
+    if not (author.is_authenticated and author.is_staff):
+        return HttpResponseRedirect(app_url + "admin")
+
+    news = News()
+    news.title = request.POST['title']
+    news.text = request.POST['text']
+    news.pub_date = datetime.now()
+    news.save()
+
+    return HttpResponseRedirect(app_url + str(news.id))
+

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block main %}
-    <h3>{{ title.title_text }}</h3>
+    <h3>{{ a_new.title }}</h3>
     <p>    <strong>{{ method }}</strong>    </p>
     {% if error_message %}
         <p>
@@ -9,8 +9,6 @@
     {% endif %}
 
     <div style="padding: 10px; margin: 20px; border: 1px solid #000000; font-size: 18px; box-shadow: 8px 8px 2px 1px rgba(94,94,232,0.56);">
-        {% for newsbody in title.newsbody_set.all %}
-            {{ newsbody.text }}<br>
-        {% endfor %}
+        {{ a_new.text }}<br>
     </div>
 {% endblock %}
