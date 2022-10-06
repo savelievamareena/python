@@ -11,4 +11,44 @@
     <div style="padding: 10px; margin: 20px; border: 1px solid #000000; font-size: 18px; box-shadow: 8px 8px 2px 1px rgba(94,94,232,0.56);">
         {{ a_new.text }}<br>
     </div>
+
+    <hr>
+<h4>Leave comment</h4>
+{% if user.is_authenticated %}
+    <form action="post/" method="post">
+    {% csrf_token %}
+    <div class="input-group mb-3">
+      <input type="text"
+             class="form-control"
+             placeholder="Your message"
+             name="message"/>
+      <div class="input-group-append">
+        <input class="btn btn-success"
+                type="submit"
+                value="Send"/>
+      </div>
+    </div>
+</form>
+{% endif %}
+
+<div id="history">
+    {% for message in latest_messages %}
+        <div class="card">
+        <div class="card-body">
+            <strong>
+                {{ message.author.username }}
+            </strong>
+            <br/>
+            <em>
+                {{ message.pub_date|date:'Y-m-d H:i:s' }}
+            </em>
+            <br/>
+            {{ message.message }}
+        </div>
+        </div>
+        <br/>
+    {% endfor %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 {% endblock %}
