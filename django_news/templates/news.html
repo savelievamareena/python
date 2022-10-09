@@ -13,8 +13,9 @@
     </div>
 
     <hr>
-<h4>Leave comment</h4>
+
 {% if user.is_authenticated %}
+    <h4>Leave comment</h4>
     <form action="post/" method="post">
     {% csrf_token %}
     <div class="input-group mb-3">
